@@ -1,0 +1,17 @@
+{% extends 'myblog/base.html' %}
+
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+{% endblock %}
+
+{% block outerbody %}
+  <div class="container">
+    <h1 class="text-center logo my-4">
+      <a href="{% url 'myblog:home' %}">My forum</a>
+    </h1>
+    {% block body %}
+    {% endblock %}
+  </div>
+{% endblock %}

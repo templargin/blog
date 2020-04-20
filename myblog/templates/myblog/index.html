@@ -1,0 +1,56 @@
+{% extends "myblog/base.html" %}
+{% block title %} My forum {% endblock %}
+
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Boards</li>
+{% endblock %}
+
+{% block body %}
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Board</th>
+        <th>Posts</th>
+        <th>Topics</th>
+        <th>Last Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          <td>
+            <a href="{% url 'myblog:board' object.pk %}">{{ object.name }}</a>
+            <small class="text-muted d-block">{{ object.description }}</small>
+          </td>
+          <td class="align-middle">{{ object.get_posts_count }}</td>
+          <td class="align-middle">{{ object.topics.count }}</td>
+          <td class="align-middle">
+            {% with post=object.get_last_post %}
+              {% if post %}
+                <small>
+                  <a href="{% url 'myblog:topic' object.pk post.topic.pk %}">
+                    {{ post.created_by.username }} at {{ post.created_at }}
+                  </a>
+                </small>
+              {% else %}
+                <small class="text-muted">
+                  <em>No posts yet.</em>
+                </small>
+              {% endif %}
+            {% endwith %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td>
+            No boards are available.
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}
