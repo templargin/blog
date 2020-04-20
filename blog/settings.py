@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
-# DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 
 ALLOWED_HOSTS = []
@@ -68,7 +68,6 @@ ROOT_URLCONF = 'blog.urls'
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = 'myblog:home'
 LOGOUT_REDIRECT_URL = 'accounts:login'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 TEMPLATES = [
@@ -148,10 +147,11 @@ USE_TZ = False
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 # EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
-EMAIL_HOST = config('MAILGUN_SMTP_SERVER', '')
-EMAIL_PORT = config('MAILGUN_SMTP_PORT', '')
-EMAIL_HOST_USER = config('MAILGUN_SMTP_LOGIN', '')
-EMAIL_HOST_PASSWORD = config('MAILGUN_SMTP_PASSWORD', '')
+
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 
 
 # Static files (CSS, JavaScript, Images)
